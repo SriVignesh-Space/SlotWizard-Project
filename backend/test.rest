@@ -1,0 +1,47 @@
+### Get /
+GET http://localhost:5000
+
+### register an user 
+POST http://localhost:5000/api/user/register
+Content-Type: application/json
+
+{
+    "name" :"vishinu",
+    "email" :"vishnu@gmail.com",
+    "password":"apple",
+    "department":"IT",
+    "registerNumber": "212223220124"
+}
+
+### login an user 
+POST http://localhost:5000/api/user/login
+Content-Type: application/json
+
+{
+    "email" :"vishnu@gmail.com",
+    "password":"apple"
+}
+
+
+### Generate timetable
+POST http://localhost:5000/api/user/timetables
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YzU1MjU2ZTg1OGY3OWExN2NhNTYzMSIsImlhdCI6MTc1Nzc2NzEwMn0.to5idRsR6hLiVLZnqOJyStNERlu_8mQoUKVdk0wXgoM
+
+{"timetable": [
+    { "code": "19ME533", "staff": ["MUTHUKUMAR V", "ganesh"] },
+    { "code": "19TD609", "staff": ["Saranya V"] },
+    { "code": "19AI553", "staff": ["PROGRAD FACULTY", "POTNURI ANITHA", "T YOGASUNDARI"] },
+    { "code": "19MS156", "staff": ["RAMAR V", "Gurunathan M"] },
+    { "code": "19EN618", "staff": ["Rangarathnam Gopu"] },
+    { "code": "19AM509", "staff": ["Vasanth Kumar", "Gurunathan M"] },
+    { "code": "19CH629", "staff": ["Sundar Rajan P"] },
+    { "code": "19CE521", "staff": ["Padma S"] }
+  ]
+}
+
+### Generate timetable
+GET http://localhost:5000/api/user/timetables
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YzU1MjU2ZTg1OGY3OWExN2NhNTYzMSIsImlhdCI6MTc1Nzc2NzEwMn0.to5idRsR6hLiVLZnqOJyStNERlu_8mQoUKVdk0wXgoM
+
+
