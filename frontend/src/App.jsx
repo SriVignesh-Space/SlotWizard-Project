@@ -51,13 +51,17 @@ const Main = () => {
   
   const {IsDark} = useContext(ThemeContext);
 
-  const color = (IsDark)? '#fff' : '#000'
+  const color = (IsDark)? '#fff' : '#000';
+
+  console.log(color)
 
   return (
       <div className={IsDark ? 'dark' : ''}>
+        {console.log(IsDark,"rerenders")}
       <div className='hidden sm:block'>
       <div className='pointer-events-none' style={{ width: '100%', height: '100%', position: 'absolute' }}>
         <Particles  
+          key={IsDark ? "dark" : "light"}
           particleColors={[color, color]}
           particleCount={400}
           particleSpread={20}

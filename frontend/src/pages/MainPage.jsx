@@ -1,10 +1,12 @@
 import React from 'react'
 import Navbar from '../Components/Navbar'
+import Sidebar from '../Components/Sidebar'
 
 const MainPage = () => {
   return (
     <div className='dark:bg-dark h-screen'>
       <Navbar login={true} profile={true}/>
+      <Sidebar />
     </div>
   )
 }

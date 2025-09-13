@@ -1,10 +1,18 @@
-import React from 'react'
+import React,{useContext} from 'react'
+import { ThemeContext } from '../Elements/ThemeProvider';
 import { Link } from 'react-router'
+import { MoonIcon, SunIcon } from 'lucide-react';
 
 const Navbar = ({login = false,profile=false}) => {
 
+  const {IsDark, setIsDark} = useContext(ThemeContext);
+
+  const handleTheme = () => {
+    setIsDark((prev) => !prev);
+  }
+
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center items-center">
       <div className="h-20 w-screen flex place-content-between bg-white/10 backdrop-blur-sm border border-white/10 items-center shadow-2xl/20 ">
         <Link to={"/"}>
           <div className="text-4xl ml-4 inline-block p-6 font-bold dark:text-white">
@@ -14,12 +22,17 @@ const Navbar = ({login = false,profile=false}) => {
             -Wizard
           </div>
         </Link>
-        {!login && (
+        <div className='flex justify-center items-center my-8 mx-12 gap-5'>
+          <div className='bg-dark text-white dark:bg-white p-2 rounded-2xl dark:text-dark' onClick={handleTheme}>
+              {(IsDark) ? <MoonIcon /> : <SunIcon /> }
+          </div>
+          {!login && (<div>
           <Link to={"/login"}>
-            <button className="btn cursor-cell dark:bg-white dark:text-dark my-8 mx-10 px-4 font-bold">
+            <button className="btn cursor-cell dark:bg-white dark:text-dark px-5 py-2 font-bold">
               Login
             </button>
           </Link>
+          </div>
         )}
         {profile && (
           <div>
@@ -35,6 +48,7 @@ const Navbar = ({login = false,profile=false}) => {
               </Link>
           </div>
         )}
+        </div>
       </div>
     </div>
   );
