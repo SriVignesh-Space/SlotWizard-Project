@@ -1,0 +1,38 @@
+@import "tailwindcss";
+
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base{
+    body{
+        font-family: sans-serif;
+    }
+    .dark-theme option{
+        background-color: black;
+    }
+    option{
+        background-color: rgb(222, 219, 219);
+    }
+}
+
+@layer components{
+    .btn{
+        @apply px-4 py-2 rounded-xl bg-black text-white;
+    }
+    .dark-theme{
+        @apply bg-gradient-to-b from-[#142421f4] from-30% to-[#3f2b3a]
+    }
+    .light-theme{
+        @apply bg-gradient-to-b from-[#cafff3] to-[#d6b995]
+    }
+    .in{
+        @apply border border-white/10 w-4/5 h-12 placeholder-dark/60 dark:placeholder-white/60 rounded-xl p-5 bg-dark/20 dark:bg-white/40
+    }
+}
+
+@theme{
+    --color-primary : #ffff;
+    --color-secondary : #E1E1E1;
+    --color-dark : #000;
+    --color-dark-secondary : #1A1A1A;
+}
