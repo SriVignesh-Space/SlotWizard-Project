@@ -10,6 +10,7 @@ import Particles from './Elements/Particles';
 import ErrorEl from './pages/ErrorEl'
 import ProfilePage from './pages/ProfilePage';
 import LogoutPage from './pages/LogoutPage';
+import Timetable from './pages/TimeTable'
 
 const router = createBrowserRouter([
   {
@@ -34,8 +35,12 @@ const router = createBrowserRouter([
     element : <ProfilePage />
   },
   {
-    path : "/logout",
+    path : "/LogoutPage",
     element : <LogoutPage />
+  },
+  {
+    path: "/timetable",
+    element : <Timetable/>
   }
 ])
 
