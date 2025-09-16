@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { createBrowserRouter,RouterProvider } from 'react-router';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import ThemeProvider,{ThemeContext} from './Elements/ThemeProvider';
 import LandingPage from './pages/LandingPage'
@@ -10,6 +10,7 @@ import Particles from './Elements/Particles';
 import ErrorEl from './pages/ErrorEl'
 import ProfilePage from './pages/ProfilePage';
 import LogoutPage from './pages/LogoutPage';
+import Timetable from './pages/TimeTable'
 
 const router = createBrowserRouter([
   {
@@ -34,8 +35,12 @@ const router = createBrowserRouter([
     element : <ProfilePage />
   },
   {
-    path : "/logout",
+    path : "/LogoutPage",
     element : <LogoutPage />
+  },
+  {
+    path: "/timetable",
+    element : <Timetable/>
   }
 ])
 
@@ -59,7 +64,7 @@ const Main = () => {
       <div className={IsDark ? 'dark' : ''}>
         {console.log(IsDark,"rerenders")}
       <div className='hidden sm:block'>
-      <div className='pointer-events-none' style={{ width: '100%', height: '100%', position: 'absolute' }}>
+      <div className="pointer-events-none fixed top-0 left-0 w-full h-full z-0">
         <Particles  
           key={IsDark ? "dark" : "light"}
           particleColors={[color, color]}
@@ -72,6 +77,8 @@ const Main = () => {
           disableRotation={false}
         />
       </div>
+
+
       <RouterProvider router={router}></RouterProvider>
     </div>
       </div>
