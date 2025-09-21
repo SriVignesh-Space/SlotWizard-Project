@@ -15,6 +15,35 @@
     }
 }
 
+@layer utilities {
+  .dark .custom-scrollbar::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  .dark .custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: #d0cccc; /* Tailwind blue-500 */
+    border-radius: 9999px;
+  }
+  .dark .custom-scrollbar::-webkit-scrollbar-track {
+    background: #00000000; /* Tailwind gray-200 */
+    border-radius: 5px;
+  }
+   .custom-scrollbar::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+   .custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: #000000;
+    border-radius: 9999px;
+  }
+   .custom-scrollbar::-webkit-scrollbar-track {
+    background: #00000000; 
+    border-radius: 5px;
+  }
+}
+
+
+
 @layer components{
     .btn{
         @apply px-4 py-2 rounded-xl bg-black text-white;

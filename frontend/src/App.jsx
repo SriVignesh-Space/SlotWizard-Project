@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router';
 
 import ThemeProvider,{ThemeContext} from './Elements/ThemeProvider';
 import LandingPage from './pages/LandingPage'
@@ -14,28 +14,28 @@ import Timetable from './pages/TimeTable'
 
 const router = createBrowserRouter([
   {
-    path : "/",
-    element : <LandingPage/>,
-    errorElement : <ErrorEl />
+    path: "/",
+    element: <LandingPage />,
+    errorElement: <ErrorEl />,
   },
   {
-    path : "/login",
-    element : <LoginPage />
+    path: "/login",
+    element: <LoginPage />,
   },
   {
-    path : "/signup",
-    element : <SignUpPage />
+    path: "/signup",
+    element: <SignUpPage />,
   },
   {
-    path : "/main",
-    element : <MainPage />
+    path: "/main",
+    element: <MainPage />,
   },
   {
-    path : "/profile",
-    element : <ProfilePage />
+    path: "/profile",
+    element: <ProfilePage />,
   },
   {
-    path : "/LogoutPage",
+    path : "/Logout",
     element : <LogoutPage />
   },
   {
@@ -49,20 +49,16 @@ const App = () => {
     <ThemeProvider>
       <Main />
     </ThemeProvider>
-  )
-}
+  );
+};
 
 const Main = () => {
-  
-  const {IsDark} = useContext(ThemeContext);
+  const { IsDark } = useContext(ThemeContext);
 
-  const color = (IsDark)? '#fff' : '#000';
-
-  console.log(color)
+  const color = IsDark ? "#fff" : "#000";
 
   return (
       <div className={IsDark ? 'dark' : ''}>
-        {console.log(IsDark,"rerenders")}
       <div className='hidden sm:block'>
       <div className="pointer-events-none fixed top-0 left-0 w-full h-full z-0">
         <Particles  
@@ -77,12 +73,10 @@ const Main = () => {
           disableRotation={false}
         />
       </div>
-
-
       <RouterProvider router={router}></RouterProvider>
     </div>
-      </div>
+    </div>
   );
-}
+};
 
 export default App;

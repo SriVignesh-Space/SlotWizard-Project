@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // For routing
+import { useNavigate } from 'react-router';
+
 import Navbar from '../components/Navbar';
 import Sidebar from '../Components/Sidebar';
 import EnrollmentPanel from '../Components/EnrollmentPanel';
@@ -51,7 +52,7 @@ const MainPage = () => {
   };
 
   const handleGenerateTimetable = () => {
-    navigate('/api/user/timetable');
+    navigate('/timetable');
   };
 
   return (

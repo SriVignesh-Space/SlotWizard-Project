@@ -2,6 +2,8 @@ import userModel from '../model/user.js'
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
 import { generateTimetable } from "../services/timetableService.js";
+import fs from 'fs'
+import path from 'path'
 
 
 const registerUser = async(req,res)=>{
@@ -25,8 +27,12 @@ const registerUser = async(req,res)=>{
         const user = await newUser.save()
 
         const token = jwt.sign({id: user._id},process.env.JWT_SECRET)
-
-        res.json({sucess:true,token,user:{name:user.name}})
+        res.cookie("token",token,{
+            httpOnly:true,
+            secure:false,
+            sameSite : "lax"
+        });
+        res.json({success:true,token,user:{name:user.name}})
     }
     catch(e){
         console.log(e)
@@ -35,11 +41,17 @@ const registerUser = async(req,res)=>{
 }
 const logoutUser = (req, res) => {
     try {
-        res.json({ success: true, message: "Logged out successfully" });
-    } catch (e) {
-        console.error(e);
-        res.status(500).json({ success: false, message: "Server error" });
-    }
+    res.clearCookie("token", {
+      httpOnly: true,
+      secure: false,   
+      sameSite: "lax"  
+    });
+
+    res.json({ success: true, message: "Logged out successfully" });
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ success: false, message: "Server error" });
+  }
 };
 
 
@@ -59,8 +71,12 @@ const loginUser = async(req,res)=>{
 
         if (isMatch){
             const token = jwt.sign({id: user._id},process.env.JWT_SECRET)
-            
-            res.json({sucess:true,token,user:{name:user.name}})
+            res.cookie("token", token, {
+              httpOnly: true,
+              secure: false,
+              sameSite: "lax",
+            });
+            res.json({success:true,token,user:{name:user.name}})
         }
         else {
             return res.json({sucess:false,message:"Invalid password"})
@@ -167,4 +183,13 @@ const getTimetables = async (req, res) => {
   }
 };
 
-export { registerUser, loginUser, createTableForUser, getTimetables, logoutUser };
+const getSubjects =  (req,res,next) => {
+    const data = JSON.parse(fs.readFileSync(path.join(process.cwd(),"src","services","simplified.json"),'utf-8'))
+    const filtered = data.map(({subject,code,credits}) => ({
+        subject,code,credits
+    }))
+    res.status(200).send(filtered);
+}
+
+
+export { registerUser, loginUser, createTableForUser, getTimetables,getSubjects, logoutUser };
