@@ -153,19 +153,32 @@ const createTableForUser = async (req, res) => {
     if (!rawTimetable || !Array.isArray(rawTimetable))
       return res.status(400).json({ success: false, message: "Invalid timetable" });
 
-    const { timetable, score } = await generateTimetable(rawTimetable);
+    // generate timetable
+    const { timetable, score, missedSubjects } = await generateTimetable(rawTimetable);    
 
-    user.tables.push({ score: score,...timetable });
+    // push into user.tables
+    user.tables.unshift({
+      score,
+      timetable,
+      missedSubjects
+    });
 
     if (user.tables.length > 10) user.tables.shift();
     await user.save();
 
-    res.json({ success: true, timetable, score, tables: user.tables });
+    res.json({
+      success: true,
+      timetable,
+      score,
+      missedSubjects,
+      tables: user.tables
+    });
   } catch (e) {
     console.log(e);
     res.status(500).json({ success: false, message: e.message });
   }
 };
+
 
 const getTimetables = async (req, res) => {
   try {

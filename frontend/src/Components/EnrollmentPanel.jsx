@@ -2,6 +2,13 @@ import React, { useState } from 'react';
 
 const EnrollmentPanel = ({ selectedSubjects, onUpdateStaff, onGenerate, onDeleteSubject }) => {
   const [expandedSubjects, setExpandedSubjects] = useState({});
+  const handleSelectAll = (subj, value) => {
+  const updatedStaff = {};
+    Object.keys(subj.preferredStaff).forEach(staff => {
+      updatedStaff[staff] = value;
+    });
+    onUpdateStaff(subj.code, updatedStaff, true);
+  };
 
   const toggleExpand = (code) => {
     setExpandedSubjects(prev => ({ ...prev, [code]: !prev[code] }));
@@ -44,7 +51,25 @@ const EnrollmentPanel = ({ selectedSubjects, onUpdateStaff, onGenerate, onDelete
 
                 {isExpanded && (
                   <div className="mt-3 space-y-4">
-                    <p className="text-sm text-dark/60 dark:text-white/60">Available Staff</p>
+                    <div className="flex items-center justify-between">
+                      <p className="text-sm text-dark/60 dark:text-white/60">Available Staff</p>
+                      <div className="flex gap-2">
+                        <button
+                          onClick={() => handleSelectAll(subj, true)}
+                          className="px-3 py-1 text-xs rounded bg-green-500 text-white hover:bg-green-600"
+                        >
+                          Select All
+                        </button>
+                        <button
+                          onClick={() => handleSelectAll(subj, false)}
+                          className="px-3 py-1 text-xs rounded bg-red-500 text-white hover:bg-red-600"
+                        >
+                          Clear All
+                        </button>
+                      </div>
+                    </div>
+
+
                     {uniqueStaff.map((staffName, index) => {
                       const isSelected = subj.preferredStaff[staffName] || false;
                       return (

@@ -14,7 +14,7 @@ const Sidebar = ({ subjects, onAddSubject, searchTerm, setSearchTerm }) => {
         {subjects.map((subject) => (
           <div key={subject.code} className="cursor-pointer w-11/12 mx-auto my-2 p-3 rounded-2xl bg-dark/30 dark:bg-white/50 hover:bg-blue-400 hover:text-white"
             onClick={() => onAddSubject(subject)}>
-            {subject.code} - {subject.subject}
+            {subject.code} - {subject.subject} 
           </div>
         ))}
       </div>
