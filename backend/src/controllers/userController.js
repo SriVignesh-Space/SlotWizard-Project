@@ -204,5 +204,13 @@ const getSubjects =  (req,res,next) => {
     res.status(200).send(filtered);
 }
 
+const loggedIn = (req,res) => {
+    res.status(200).json({
+        success : true,
+        loggedIn : true,
+        user : req.user
+    })
+}
 
-export { registerUser, loginUser, createTableForUser, getTimetables,getSubjects, logoutUser };
+
+export { registerUser, loginUser, createTableForUser, getTimetables,getSubjects, logoutUser, loggedIn};

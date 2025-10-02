@@ -2,20 +2,21 @@ import React, { useState } from 'react';
 
 const EnrollmentPanel = ({ selectedSubjects, onUpdateStaff, onGenerate, onDeleteSubject }) => {
   const [expandedSubjects, setExpandedSubjects] = useState({});
+  
   const handleSelectAll = (subj, value) => {
-  const updatedStaff = {};
-    Object.keys(subj.preferredStaff).forEach(staff => {
-      updatedStaff[staff] = value;
-    });
-    onUpdateStaff(subj.code, updatedStaff, true);
-  };
+  const updatedStaff = subj.preferredStaff
+    ? Object.fromEntries(Object.keys(subj.preferredStaff).map(staff => [staff, value]))
+    : {};
+  onUpdateStaff(subj.code, updatedStaff, true);
+};
+
 
   const toggleExpand = (code) => {
     setExpandedSubjects(prev => ({ ...prev, [code]: !prev[code] }));
   };
 
   return (
-    <div className="flex-1 m-5 p-5 bg-white dark:bg-gray-800 rounded-3xl shadow-lg overflow-y-auto">
+    <div className="flex-1 m-3 p-5 bg-white/10 dark:bg-gray-800/50 rounded-3xl z-10 backdrop-blur-sm shadow-lg overflow-y-auto">
       <h2 className="text-xl font-bold text-dark dark:text-white">Selected Subjects</h2>
       {selectedSubjects.length === 0 ? (
         <p className="text-dark/50 dark:text-white/50 mt-4">No subjects selected.</p>

@@ -16,7 +16,7 @@ const LandingPage = () => {
             Choose your preferences, and let our system build the perfect
             timetable for you.
           </p>
-          <Link to={'/login'}>
+          <Link to={'/signup'}>
           <button className="dark:bg-primary dark:text-dark bg-dark text-primary font-bold text-2xl pl-6 pr-6 pt-4 pb-4 rounded-full text-shadow-white inline-block cursor-pointer">
             Get Started
           </button>

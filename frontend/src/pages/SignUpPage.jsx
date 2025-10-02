@@ -27,7 +27,7 @@ const SignUpPage = () => {
       toast.error("Check Your Mail");
       return false;
     }
-    if(!(/^\d{10}$/.test(RegNo)))
+    if(!(/^\d{12}$/.test(RegNo)))
     {
       toast.error("Enter a Valid RegNo")
       return false;

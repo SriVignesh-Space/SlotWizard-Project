@@ -22,7 +22,8 @@ const LogoutPage = () => {
         }
       } catch (error) {
         console.log(error)
-        toast.error(error.message);
+        toast.error("Authentication error");
+        navigate('/login')
       }
     }
 
