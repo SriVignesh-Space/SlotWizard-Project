@@ -57,23 +57,23 @@ Selections are sent to the backend, where the backtracking-based timetable gener
 
 The backend returns the best conflict-free timetable and any missed subjects, which the frontend renders as an interactive weekly grid.​
 
-![Architecture](<C:\Users\Sri Vignesh G\AppData\Local\Packages\5319275A.WhatsAppDesktop_cv1g1gvanyjgm\TempState\44B6531E58A165C5EF83C4BD99C9F5A5\WhatsApp Image 2025-12-06 at 22.00.19_df7eae42.jpg>)
+![Architecture](<./Output_Images/Architecture.jpg>)
 
 Output1 – Landing Page
 
 The landing page introduces SlotWizard, highlighting its purpose of generating smarter, clash-free timetables and guiding users to register or log in with a clean, animated interface.​
-![landing](<C:\Users\Sri Vignesh G\OneDrive\Pictures\Screenshots\Screenshot 2025-12-06 221314.png>)
-![sign](<C:\Users\Sri Vignesh G\OneDrive\Pictures\Screenshots\Screenshot 2025-12-06 221441.png>)
+![landing](<./Output_Images/Landing.png>)
+![signup](<./Output_Images/SignUp.png>)
 
 The login page allows registered students to authenticate securely before accessing the dashboard, with validations and error feedback for invalid credentials.​
-![login](<C:\Users\Sri Vignesh G\OneDrive\Pictures\Screenshots\Screenshot 2025-12-06 221534.png>)
+![login](<./Output_Images/Login.png>)
 
 The Enrollment Panel lets students browse/search all available subjects, add them to a selection list, and choose preferred faculty per subject with corresponding slot details.
-![Enrollment](<C:\Users\Sri Vignesh G\OneDrive\Pictures\Screenshots\Screenshot 2025-12-06 221737.png>)​
+![Enrollment](<./Output_Images/Main.png>)​
 
 The Timetable Display Page shows the generated clash-free weekly schedule in a tabular grid with days vs time slots, including subject code, name, faculty, and slot.​
 It also lists missed subjects that could not be scheduled and allows navigation between timetable variants (Previous/Next) and options like Edit or New.​The engine is optimized with pruning and slot-order heuristics to provide near-instant timetable generation for typical semester loads.​
-![timetable](<C:\Users\Sri Vignesh G\OneDrive\Pictures\Screenshots\Screenshot 2025-12-06 221846.png>)
+![timetable](<./Output_Images/Timetable.png>)
 
 # Results and Impact
 
