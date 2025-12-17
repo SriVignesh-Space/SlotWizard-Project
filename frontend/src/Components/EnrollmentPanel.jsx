@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Trash2 } from 'lucide-react';
 
 const EnrollmentPanel = ({ selectedSubjects, onUpdateStaff, onGenerate, onDeleteSubject }) => {
   const [expandedSubjects, setExpandedSubjects] = useState({});
@@ -45,7 +46,7 @@ const EnrollmentPanel = ({ selectedSubjects, onUpdateStaff, onGenerate, onDelete
                       className="p-1 rounded hover:bg-red-200 dark:hover:bg-red-600 text-red-500 dark:text-red-400 text-lg"
                       title="Delete Subject"
                     >
-                      🗑️
+                      <Trash2 className='dark:text-white' />
                     </button>
                   </div>
                 </div>
