@@ -10,6 +10,7 @@ import toast from "react-hot-toast";
 
 const MainPage = () => {
   const [searchTerm, setSearchTerm] = useState("");
+  const [timetable, setTimetable] = useState(null);
 
   const [selectedSubjects, setSelectedSubjects] = useState(() => {
     const saved =
@@ -53,23 +54,27 @@ const MainPage = () => {
     localStorage.setItem("selectedSubjects", JSON.stringify(selectedSubjects));
   }, [selectedSubjects]);
 
-  React.useEffect(() => {
-    async function LoggedIn() {
-      try {
-        const res = await api.get("/loggedin");
-        if (!res.data.loggedIn) {
-          toast.error("Authentication error");
-          navigate("/login");
-        }
-        if (res.data.success) setUser(res.data.user);
-      } catch (error) {
-        console.log(error);
-        toast.error("Authentication error");
-        navigate("/login");
-      }
-    }
-    LoggedIn();
-  }, []);
+
+  const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  const timeSlots = ["8:00-10:00", "10:00-12:00", "1:00-3:00", "3:00-5:00"];
+
+  // React.useEffect(() => {
+  //   async function LoggedIn() {
+  //     try {
+  //       const res = await api.get("/loggedin");
+  //       if (!res.data.loggedIn) {
+  //         toast.error("Authentication error");
+  //         navigate("/login");
+  //       }
+  //       if (res.data.success) setUser(res.data.user);
+  //     } catch (error) {
+  //       console.log(error);
+  //       toast.error("Authentication error");
+  //       navigate("/login");
+  //     }
+  //   }
+  //   LoggedIn();
+  // }, []);
 
   const handleAddSubject = (subject) => {
     console.log(subject);
@@ -141,19 +146,100 @@ const MainPage = () => {
 
     try {
       const response = await api.post("/timetables", timetable);
+      console.log(response);
       if (!response.data.success) {
         toast.error("Something went wrong");
-        navigate("login");
+        // navigate("login");
+        
       }
-      navigate("/timetable");
+      if(response.data.success)
+        setTimetable(response.data.timetable);
+      // navigate("/timetable");
     } catch (error) {
       console.error("Error generating timetable:", error);
       toast.error("Authentication error");
-      navigate("/login");
+      // navigate("/login");
     }
   };
 
+  if(timetable){
+    return (<>
+      <div className="overflow-x-auto w-full">
+        <table className="w-full min-w-[600px] border-collapse border border-dark/20 dark:border-white/20">
+          <thead className="bg-dark/10 dark:bg-white/10">
+            <tr>
+              <th className="border border-dark/20 dark:border-white/20 px-4 py-3 text-left dark:text-white">
+                Time / Day
+              </th>
+              {days.map((day) => (
+                <th
+                  key={day}
+                  className="border border-dark/20 dark:border-white/20 px-4 py-3 text-left dark:text-white"
+                >
+                  {day}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {timeSlots.map((slot,i) => (
+              <tr
+                key={slot}
+                className="hover:bg-dark/10 dark:hover:bg-white/10"
+              >
+                <td className="border border-dark/20 dark:border-white/20 px-4 py-2 font-semibold dark:text-white bg-dark/5 dark:bg-white/5">
+                  {slot}
+                </td>
+                {days.map((day) => {  
+                  const cell = timetable[day]?.[i];
+                  // console.log(timetable[day][i]);
+                  console.log(cell,"cell");
+                  return (
+                    <td
+                      key={day + slot}
+                      className="border border-dark/20 dark:border-white/20 px-4 py-2 dark:text-white align-top"
+                    >
+                      {(cell && cell[2] !== "FREE") ? (
+                        <div className="flex flex-col items-start">
+                          <div className="relative group max-w-[100px]">
+                            <div className="text-blue-600 dark:text-blue-400 font-bold line-clamp-2">
+                              {cell[2]}
+                            </div>
+                            <div
+                              className="absolute left-1/2 transform -translate-x-1/2 bottom-full mb-1 
+                                                hidden group-hover:block bg-dark/90 dark:bg-white/90 
+                                                text-white dark:text-black text-xs px-2 py-1 rounded shadow-lg 
+                                                whitespace-nowrap z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none"
+                            >
+                              {cell[1]}
+                            </div>
+                          </div>
+                          <div className="text-dark/60 dark:text-white/60 text-sm">
+                            {cell[0]}
+                          </div>
+                          <div className="text-dark/40 dark:text-white/40 text-xs">
+                            {cell[3]}
+                          </div>
+                        </div>
+                      ) : (
+                        <span className="text-blue-600 dark:text-blue-400 font-bold">
+                          Free
+                        </span>
+                      )}
+                    </td>
+                  );
+                })}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </>)
+  }
+
   return (
+
+    
     <div className="dark:bg-dark min-h-screen">
       <Navbar login={true} profile={true} />
       <div className="flex">

@@ -154,7 +154,9 @@ const createTableForUser = async (req, res) => {
       return res.status(400).json({ success: false, message: "Invalid timetable" });
 
     // generate timetable
-    const { timetable, score, missedSubjects } = await generateTimetable(rawTimetable);    
+    const { timetable, score, missedSubjects } = await generateTimetable(rawTimetable); 
+
+    return res.json({ success: true, timetable, score, missedSubjects });
 
     // push into user.tables
     user.tables.unshift({
@@ -180,21 +182,21 @@ const createTableForUser = async (req, res) => {
 };
 
 
-const getTimetables = async (req, res) => {
-  try {
-    const userId = req.user.id; 
-    const user = await userModel.findById(userId);
+// const getTimetables = async (req, res) => {
+//   try {
+//     // const userId = req.user.id; 
+//     // const user = await userModel.findById(userId);
 
-    if (!user) {
-      return res.status(404).json({ success: false, message: "User not found" });
-    }
+//     // if (!user) {
+//     //   return res.status(404).json({ success: false, message: "User not found" });
+//     // }
 
-    res.json({ success: true, tables: user.tables });
-  } catch (e) {
-    console.error(e);
-    res.status(500).json({ success: false, message: e.message });
-  }
-};
+//     res.json({ success: true, tables: user.tables })
+//   } catch (e) {
+//     console.error(e);
+//     res.status(500).json({ success: false, message: e.message });
+//   }
+// };
 
 const getSubjects =  (req,res,next) => {
     const data = JSON.parse(fs.readFileSync(path.join(process.cwd(),"src","services","simplified.json"),'utf-8'))
@@ -213,4 +215,4 @@ const loggedIn = (req,res) => {
 }
 
 
-export { registerUser, loginUser, createTableForUser, getTimetables,getSubjects, logoutUser, loggedIn};
+export { registerUser, loginUser, createTableForUser,getSubjects, logoutUser, loggedIn};
