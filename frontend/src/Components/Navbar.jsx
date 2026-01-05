@@ -3,7 +3,7 @@ import { ThemeContext } from '../Elements/ThemeProvider';
 import { Link } from 'react-router'
 import { MoonIcon, SunIcon } from 'lucide-react';
 
-const Navbar = ({login = false,profile=false}) => {
+const Navbar = () => {
 
   const {IsDark, setIsDark} = useContext(ThemeContext);
 
@@ -25,29 +25,7 @@ const Navbar = ({login = false,profile=false}) => {
         <div className='flex justify-center items-center my-8 mx-12 gap-3'>
           <div className='bg-dark text-white dark:bg-white p-2 rounded-2xl dark:text-dark' onClick={handleTheme}>
               {(IsDark) ? <MoonIcon /> : <SunIcon /> }
-          </div>
-          {!login && (<div>
-          <Link to={"/login"}>
-            <button className="btn cursor-cell dark:bg-white dark:text-dark px-5 py-2 font-bold">
-              Login
-            </button>
-          </Link>
-          </div>
-        )}
-        {profile && (
-          <div>
-              {/* <Link to={"/profile"}>
-                <button className="btn dark:bg-white dark:text-dark my-8  px-4 font-bold">
-                  Profile
-                </button>
-              </Link> */}
-              <Link to={"/logout"}>
-                <button className="btn dark:bg-white dark:text-dark my-8 mx-5 px-4 font-bold">
-                  Logout
-                </button>
-              </Link>
-          </div>
-        )}
+          </div>    
         </div>
       </div>
     </div>

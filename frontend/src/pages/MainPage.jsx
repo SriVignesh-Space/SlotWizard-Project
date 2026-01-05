@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router";
+import { Link } from "react-router";
 
 import Navbar from "../components/Navbar";
 import Sidebar from "../Components/Sidebar";
@@ -38,9 +38,6 @@ const MainPage = () => {
       .filter(Boolean);
   });
 
-  const [user, setUser] = useState({});
-  const navigate = useNavigate();
-
   const filteredSubjects = subjectsData.filter((subj) => {
     if (!searchTerm) return true;
     if (searchTerm.length > 0 && "0123456789".includes(searchTerm[0])) {
@@ -57,24 +54,6 @@ const MainPage = () => {
 
   const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
   const timeSlots = ["8:00-10:00", "10:00-12:00", "1:00-3:00", "3:00-5:00"];
-
-  // React.useEffect(() => {
-  //   async function LoggedIn() {
-  //     try {
-  //       const res = await api.get("/loggedin");
-  //       if (!res.data.loggedIn) {
-  //         toast.error("Authentication error");
-  //         navigate("/login");
-  //       }
-  //       if (res.data.success) setUser(res.data.user);
-  //     } catch (error) {
-  //       console.log(error);
-  //       toast.error("Authentication error");
-  //       navigate("/login");
-  //     }
-  //   }
-  //   LoggedIn();
-  // }, []);
 
   const handleAddSubject = (subject) => {
     console.log(subject);
@@ -149,23 +128,20 @@ const MainPage = () => {
       console.log(response);
       if (!response.data.success) {
         toast.error("Something went wrong");
-        // navigate("login");
         
       }
       if(response.data.success)
         setTimetable(response.data.timetable);
-      // navigate("/timetable");
     } catch (error) {
       console.error("Error generating timetable:", error);
-      toast.error("Authentication error");
-      // navigate("/login");
     }
   };
 
   if(timetable){
     return (<>
-      <div className="overflow-x-auto w-full">
-        <table className="w-full min-w-[600px] border-collapse border border-dark/20 dark:border-white/20">
+      <div className="overflow-x-auto dark:bg-dark h-screen">
+        <h1 className="dark:text-white text-5xl text-center p-10">Generated TimeTable</h1>
+        <table className="w-[90%] min-w-[650px] m-auto border-collapse border backdrop-blur-md border-dark/20 dark:border-white/10">
           <thead className="bg-dark/10 dark:bg-white/10">
             <tr>
               <th className="border border-dark/20 dark:border-white/20 px-4 py-3 text-left dark:text-white">
@@ -199,7 +175,7 @@ const MainPage = () => {
                       key={day + slot}
                       className="border border-dark/20 dark:border-white/20 px-4 py-2 dark:text-white align-top"
                     >
-                      {(cell && cell[2] !== "FREE") ? (
+                      {(cell && cell !== "empty") ? (
                         <div className="flex flex-col items-start">
                           <div className="relative group max-w-[100px]">
                             <div className="text-blue-600 dark:text-blue-400 font-bold line-clamp-2">
@@ -241,7 +217,7 @@ const MainPage = () => {
 
     
     <div className="dark:bg-dark min-h-screen">
-      <Navbar login={true} profile={true} />
+      <Navbar/>
       <div className="flex">
         <Sidebar
           subjects={filteredSubjects}
@@ -250,15 +226,7 @@ const MainPage = () => {
           setSearchTerm={setSearchTerm}
         />
         <div className="w-[60%]">
-          {user.tables?.length != 0 && (
-            <div className="mt-1 backdrop-blur-md flex justify-end">
-              <Link to={"/timetable"}>
-                <button className="btn bg-blue-700 m-2 cursor-pointer font-bold">
-                  Existing timetable
-                </button>
-              </Link>
-            </div>
-          )}
+          
           <EnrollmentPanel
             selectedSubjects={selectedSubjects}
             onUpdateStaff={handleUpdateStaff}

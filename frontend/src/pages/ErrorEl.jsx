@@ -1,8 +1,15 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { Link, useNavigate } from 'react-router'
 
 const ErrorEl = () => {
+  const navigate = useNavigate();
+
+  useEffect(()=>{
+    navigate("/");
+  },[])
+
   return (
-    <div>ErrorEl</div>
+    <div className='dark:text-white h-screen'>No Page Found</div>
   )
 }
 

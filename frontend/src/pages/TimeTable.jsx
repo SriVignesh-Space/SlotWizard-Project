@@ -149,7 +149,7 @@ const Timetable = () => {
               </tbody>
             </table>
           </div>
-
+``
           <div className="flex justify-center gap-4 mt-6 flex-wrap">
             <button
               onClick={prevTimetable}
